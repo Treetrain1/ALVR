@@ -99,12 +99,12 @@ jobs:
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
         working-directory: ./alvr/client_openxr
-        run: cargo xtask build-client
+        run: cargo xtask build-client --release
       - name: Capture Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ALVR-Artifacts-${{ steps.ref.outputs.branch }}
-          path: build/alvr_client_quest/
+          path: target/release/apk/
 
   tests:
     runs-on: ubuntu-latest
