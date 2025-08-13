@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [master]
   merge_group:
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
@@ -99,6 +100,11 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
         working-directory: ./alvr/client_openxr
         run: cargo xtask build-client
+      - name: Capture Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ALVR-Artifacts-${{ steps.ref.outputs.branch }}
+          path: build/alvr_client_quest/
 
   tests:
     runs-on: ubuntu-latest
